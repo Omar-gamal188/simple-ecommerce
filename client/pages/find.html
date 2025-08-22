@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Product</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1 style="text-align:center;">Find Page</h1>
+  <p style="text-align:center;">This is the find page content.</p>
+  <p style="text-align:center;"><a href="/">⬅ Go to Home</a></p>
+
+  <div class="products-place" id="products-place"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    console.log("Find page loaded");
+
+    async function getproducts() {
+        const keyword = new URLSearchParams(window.location.search).get("keyword") || "";
+        
+
+
+      const response = await axios.get('http://localhost:3000/search?keyword=' + keyword);
+      const products = document.getElementById("products-place");
+if (response.data.length > 0) {
+  products.innerHTML = ""; // فضي القديم
+  response.data.forEach(product => {
+    const element = document.createElement("div");
+    element.classList.add("item");
+    element.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h2>${product.name}</h2>
+      <p class="price">Price: $${product.price}</p>
+      <div class="actions">
+        <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
+        <button class="btn btn-outline">Details</button>
+      </div>
+    `;
+    products.appendChild(element);
+  });
+} else {
+  products.innerHTML = "<p style='text-align:center;'>No product found</p>";
+}
+
+    }
+
+    getproducts();
+  </script>
+</body>
+</html>
