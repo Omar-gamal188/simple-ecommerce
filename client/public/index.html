@@ -100,15 +100,17 @@
                 <a href="#/cart">Cart</a>
         </header>
 
-        <form method="get" action="http://localhost:3000/find"  style="margin: 20px;">
-            <div style="text-align: center; margin: 20px;">
-                <input type="text" name="keyword" placeholder="Search for products..."
-                 style="padding: 10px; width: 300px; border-radius: 5px; border: 1px solid #ddd;">
+        <form method="get" action="/find" style="margin: 20px;">
+    <div style="text-align: center; margin: 20px;">
+        <input type="text" name="keyword" placeholder="Search for products..."
+            style="padding: 10px; width: 300px; border-radius: 5px; border: 1px solid #ddd;">
+        <button type="submit" 
+            style="padding: 10px 15px; margin-left: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+            Search
+        </button>
+    </div>
+</form>
 
-                <button type="submit" 
-                style="padding: 10px 15px; margin-left: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Search</button>
-            </div>
-        </form>
     </div>
 
 
@@ -120,7 +122,7 @@
         <p style="text-align: center; padding: 10px; background-color: #333; color: white;">&copy; 2024 Simple Ecommerce</p>
 
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>

@@ -1,4 +1,3 @@
-// server/index.js
 const express = require('express');
 const path = require('path');
 const routes = require('./routes');
@@ -12,7 +11,7 @@ app.use(express.static(path.join(__dirname, "../client/public")));
 // استخدام الراوتات
 app.use(routes);
 
-// صفحة رئيسية
+// صفحة رئيسية (Fallback)
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, "../client/public/index.html"));
 });
@@ -21,3 +20,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+module.exports = app; // مهم للـ Vercel

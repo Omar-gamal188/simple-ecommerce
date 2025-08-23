@@ -1,8 +1,7 @@
-// server/routes.js
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const products = require('./products');
+const products = require('./products'); // بيانات المنتجات
 
 // صفحة البحث
 router.get('/find', (req, res) => {
@@ -12,8 +11,7 @@ router.get('/find', (req, res) => {
 // البحث عن منتج
 router.get('/search', (req, res) => {
     const keyword = (req.query.keyword || "").trim().toLowerCase();
-    if (!keyword) return res.json([]); // لو فاضية، رجع مصفوفة فاضية
-
+    if (!keyword) return res.json([]); 
     const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
     res.json(filtered);
 });

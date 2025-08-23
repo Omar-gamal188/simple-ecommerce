@@ -22,7 +22,8 @@
         
 
 
-      const response = await axios.get('http://localhost:3000/search?keyword=' + keyword);
+     const response = await axios.get('/search?keyword=' + encodeURIComponent(keyword));
+
       const products = document.getElementById("products-place");
 if (response.data.length > 0) {
   products.innerHTML = ""; // فضي القديم
