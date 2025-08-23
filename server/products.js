@@ -8,5 +8,5 @@ module.exports = [
   { id: 7, name: 'Socks', price: 4.99, image: '/image/photo-1640026199235-c24aa417b552.avif' },
   { id: 8, name: 'Shorts', price: 24.99, image: '/image/photo-1667388624717-895854eea032.avif' },
   { id: 9, name: 'Sweater', price: 34.99, image: '/image/photo-1631541909061-71e349d1f203.avif' },
-  { id: 10, name: 'Belt', price: 14.99, image: '/image/photo-1666723043169-22e29545675c.avif' }
+  { id: 10, name: 'Belt', price: 0, image: '/image/photo-1666723043169-22e29545675c.avif' }
 ];

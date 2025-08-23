@@ -3,15 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Product</title>
+  <title>Search Results - Simple Ecommerce</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <h1 style="text-align:center;">Find Page</h1>
-  <p style="text-align:center;">This is the find page content.</p>
-  <p style="text-align:center;"><a href="/">⬅ Go to Home</a></p>
+<body class="find-page">
+  <div class="find-header">
+    <h1>Search Results</h1>
+    <p>Find your perfect products with our powerful search</p>
+    <a href="/" class="back-link">Back to Home</a>
+  </div>
 
-  <div class="products-place" id="products-place"></div>
+  <div class="search-results">
+    <div class="search-info">
+      <h2>Search Results for: <span class="search-keyword" id="search-keyword"></span></h2>
+      <p class="results-count" id="results-count"></p>
+    </div>
+
+    <div class="search-products" id="products-place"></div>
+
+    <div class="no-results" id="no-results" style="display: none;">
+      <h3>No Products Found</h3>
+      <p>We couldn't find any products matching your search criteria.</p>
+      <a href="/" class="back-link">Browse All Products</a>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
@@ -20,34 +35,65 @@
     async function getproducts() {
         const keyword = new URLSearchParams(window.location.search).get("keyword") || "";
         
+        // Update search keyword display
+        document.getElementById('search-keyword').textContent = keyword || 'all products';
+        
+        // Show loading state
+        document.getElementById('products-place').innerHTML = `
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Searching products...</p>
+            </div>
+        `;
 
+        try {
+            const response = await axios.get('/search?keyword=' + encodeURIComponent(keyword));
+            const products = document.getElementById("products-place");
+            const noResults = document.getElementById("no-results");
+            const resultsCount = document.getElementById("results-count");
 
-     const response = await axios.get('/search?keyword=' + encodeURIComponent(keyword));
-
-      const products = document.getElementById("products-place");
-if (response.data.length > 0) {
-  products.innerHTML = ""; // فضي القديم
-  response.data.forEach(product => {
-    const element = document.createElement("div");
-    element.classList.add("item");
-    element.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h2>${product.name}</h2>
-      <p class="price">Price: $${product.price}</p>
-      <div class="actions">
-        <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
-        <button class="btn btn-outline">Details</button>
-      </div>
-    `;
-    products.appendChild(element);
-  });
-} else {
-  products.innerHTML = "<p style='text-align:center;'>No product found</p>";
-}
-
+            if (response.data.length > 0) {
+                products.innerHTML = "";
+                noResults.style.display = "none";
+                
+                // Update results count
+                resultsCount.textContent = `Found ${response.data.length} product${response.data.length !== 1 ? 's' : ''}`;
+                
+                response.data.forEach(product => {
+                    const element = document.createElement("div");
+                    element.classList.add("search-item");
+                    element.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h2>${product.name}</h2>
+                        <p class="price">$${product.price}</p>
+                        <div class="search-actions">
+                            <button class="search-btn search-btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
+                            <button class="search-btn search-btn-outline">View Details</button>
+                        </div>
+                    `;
+                    products.appendChild(element);
+                });
+            } else {
+                products.innerHTML = "";
+                noResults.style.display = "block";
+                resultsCount.textContent = "No products found";
+            }
+        } catch (error) {
+            console.error("Search error:", error);
+            document.getElementById("products-place").innerHTML = `
+                <div class="no-results">
+                    <h3>Search Error</h3>
+                    <p>Sorry, there was an error processing your search. Please try again.</p>
+                    <a href="/" class="back-link">Back to Home</a>
+                </div>
+            `;
+        }
     }
 
-    getproducts();
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+        getproducts();
+    });
   </script>
 </body>
 </html>
