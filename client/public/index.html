@@ -127,7 +127,8 @@
 
     <script>
         async function getproduct() {
-            const response =await axios.get("http://localhost:3000/api/product");
+            const response = await axios.get("/api/product");
+
             const products=document.getElementById("products-place");
 
             for(const product of response.data){
