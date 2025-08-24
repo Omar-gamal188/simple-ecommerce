@@ -6,6 +6,7 @@
   padding: 3rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  
 }
 
 .item {
@@ -109,7 +110,7 @@
 @media (min-width: 1200px) {
   .products-place {
     padding: 3rem 2rem;
-    gap: 2rem;
+    gap: 4rem;
   }
   
   .item {
