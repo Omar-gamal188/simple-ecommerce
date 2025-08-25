@@ -16,6 +16,21 @@ router.get('/search', (req, res) => {
     res.json(filtered);
 });
 
+router.get('/dashboard', (req, res) => {
+   const totalProducts = products.length;
+   const mostExpensive = Math.max(...products.map(p => p.price));
+   const cheapestItem = Math.min(...products.map(p => p.price));
+   const averagePrice = Math.round(products.reduce((sum, p) => sum + p.price, 0) / totalProducts * 100) / 100;
+
+   res.json({
+        totalProducts,
+        mostExpensive,
+        cheapestItem,
+        averagePrice,
+   })
+});
+
+
 // API لكل المنتجات
 router.get('/api/product', (req, res) => {
     res.json(products);

@@ -34,6 +34,9 @@
                 <a href="#home-page" class="nav-link active">Home</a>
                 <a href="#products-place" class="nav-link">Products</a>
                 <a href="#/cart" class="nav-link">Cart</a>
+                <a href="./dashboard/dashboard.html" class="nav-link">Dashboard</a>
+
+
             </div>
         </div>
     </nav>
@@ -96,7 +99,7 @@
                                 <img src="${product.image}" alt="${product.name}">
                             </div>
                             <h2>${product.name}</h2>
-                            <p class="price">$${product.price}</p>
+                            <p class="price">EGP${product.price}</p>
                             <div class="actions">
                                 <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
                                 <button class="btn btn-outline">View Details</button>

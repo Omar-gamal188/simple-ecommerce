@@ -107,7 +107,7 @@
 }
 
 /* Large screens (1200px and above) */
-@media (min-width: 1200px) {
+@media (min-width: 1200px) { 
   .products-place {
     padding: 3rem 2rem;
     gap: 4rem;

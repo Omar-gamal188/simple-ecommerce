@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Manager - Simple Ecommerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">SimpleEcommerce</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/dashboard/dashboard.html" class="nav-link active">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Dashboard hero -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Dashboard Manager</h1>
+            <p>Welcome to your ecommerce management dashboard</p>
+        </div>
+
+        <!-- Dashboard boxs -->
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Quick Stats</h3>
+                <div class="dashboard-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="toatalproduct">...</div>
+                        <div class="stat-label">Total Products</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="mostexpensive">...</div>
+                        <div class="stat-label">most expensive</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="cheapestitem">...</div>
+                        <div class="stat-label">cheapest item</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="avrageprice">EGP ...</div>
+                        <div class="stat-label">avrage price</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+
+            <div class="dashboard-card">
+                <h3>Quick Actions</h3>
+                <div class="dashboard-actions">
+                    <a href="./add.html" class="action-btn">Add New Product</a>
+                    <a href="./show.html" class="action-btn">View Product</a>
+                    <a href="#" class="action-btn">Manage Users</a>
+                    <a href="#" class="action-btn">View Analytics</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Recent Activity</h3>
+            <p>No recent activity to display</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>System Status</h3>
+            <p>All systems operational</p>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Simple Ecommerce</h3>
+                <p>Your trusted online shopping destination</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="/">Home</a>
+                <a href="/dashboard/dashboard.html">Dashboard</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Follow us on social media</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Simple Ecommerce. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+     const toatalproduct= document.getElementById("toatalproduct");
+
+
+     const mostexpensive= document.getElementById("mostexpensive");
+
+
+     const cheapestitem = document.getElementById("cheapestitem");
+
+
+     const avrageprice = document.getElementById("avrageprice");
+     
+
+       async function getAnalytics(){
+
+        const response = await axios.get("http://localhost:3000/dashboard");
+
+        toatalproduct.innerText = response.data.totalProducts;
+        mostexpensive.innerText = "EGP " + response.data.mostExpensive;
+        cheapestitem.innerText = "EGP " + response.data.cheapestItem;
+        avrageprice.innerText = "EGP " + response.data.averagePrice.toFixed(2);
+}
+
+        getAnalytics();
+
+
+    </script>
+</body>
+</html>
