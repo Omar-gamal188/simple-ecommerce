@@ -47,7 +47,8 @@
         `;
 
         try {
-            const response = await axios.get('/search?keyword=' + encodeURIComponent(keyword));
+           const response = await axios.get('/api/search?keyword=' + encodeURIComponent(keyword));
+
             const products = document.getElementById("products-place");
             const noResults = document.getElementById("no-results");
             const resultsCount = document.getElementById("results-count");

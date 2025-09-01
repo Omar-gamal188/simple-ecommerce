@@ -1,3 +1,4 @@
+<!-- Simple Ecommerce Home Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +103,8 @@
                             <p class="price">EGP${product.price}</p>
                             <div class="actions">
                                 <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
-                                <button class="btn btn-outline">View Details</button>
+                                <a href="/dashboard/product.html?id=${product.id}" class="btn btn-outline">View Details</a>
+
                             </div>
                         `;
                         products.appendChild(element);

@@ -1,3 +1,4 @@
+<!---->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,13 +36,16 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 async function getAllProduct(){
-    const response = await axios.get("/api/product");
+    const response = await axios.get("http://localhost:3000/api/product");
+    
+
     const products = document.getElementById("product-place");
 
     for (const product of response.data){
         const element = document.createElement("div");
         element.classList.add("item");
         element.innerHTML = `
+        
             <div class="image-container">
                 <img src="${product.image}" alt="${product.name}">
             </div>
@@ -49,7 +53,8 @@ async function getAllProduct(){
             <p class="price">EGP ${product.price}</p>
             <div class="actions">
                 
-                <a href="/pages/product.html?id=${product.id}" class="btn btn-outline">View Details</a>
+                <a href="/dashboard/product.html?id=${product.id}" class="btn btn-outline">View Details</a>
+
             </div>
         `;
         products.appendChild(element);

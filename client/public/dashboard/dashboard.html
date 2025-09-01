@@ -110,14 +110,20 @@
      const avrageprice = document.getElementById("avrageprice");
      
 
-       async function getAnalytics(){
+       async function getAnalytics() {
+    try {
+       const response = await axios.get("http://localhost:3000/api/dashboard");
 
-        const response = await axios.get("http://localhost:3000/dashboard");
 
-        toatalproduct.innerText = response.data.totalProducts;
-        mostexpensive.innerText = "EGP " + response.data.mostExpensive;
-        cheapestitem.innerText = "EGP " + response.data.cheapestItem;
-        avrageprice.innerText = "EGP " + response.data.averagePrice.toFixed(2);
+        toatalproduct.innerText = response.data.totalProducts ?? 0;
+        mostexpensive.innerText = "EGP " + (response.data.mostExpensive ?? 0);
+        cheapestitem.innerText = "EGP " + (response.data.cheapestItem ?? 0);
+
+        const avg = response.data.averagePrice;
+        avrageprice.innerText = "EGP " + (typeof avg === 'number' && !isNaN(avg) ? avg.toFixed(2) : "0.00");
+    } catch (error) {
+        console.error("Error fetching analytics:", error);
+    }
 }
 
         getAnalytics();

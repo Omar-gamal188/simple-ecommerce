@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="../css/show.css">
+    <style>
+        /* تنسيق إضافي لتفاصيل المنتج */
+        #product-detail {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #product-detail img {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        #product-detail h1 {
+            margin-bottom: 10px;
+        }
+
+        #product-detail p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="dashboard-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">SimpleEcommerce</a>
+            <div class="nav-links">
+                <a href="/dashboard/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="/dashboard/show.html" class="nav-link">Products</a>
+                <a href="/dashboard/add.html" class="nav-link">Add Product</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="show-container">
+        <div id="product-detail">Loading...</div>
+        <a href="/dashboard/show.html" class="back-btn">← Back to Products</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function getProduct() {
+            try {
+                // جلب id من الرابط
+                const params = new URLSearchParams(window.location.search);
+                const id = params.get("id");
+
+                if (!id) {
+                    document.getElementById("product-detail").innerHTML = "Product ID not found!";
+                    return;
+                }
+
+                // طلب بيانات المنتج من السيرفر
+                const response = await axios.get(`http://localhost:3000/api/product/${id}`);
+                const product = response.data;
+
+                const container = document.getElementById("product-detail");
+                container.innerHTML = `
+               
+                    <h1>${product.name}</h1>
+                    <img src="${product.image}" alt="${product.name}">
+                    <p><strong>Price:</strong> EGP ${product.price}</p>
+                    <p><strong>Description:</strong> ${product.description}</p>
+                `;
+            } catch (error) {
+                document.getElementById("product-detail").innerHTML = "Product not found or server error!";
+                console.error(error);
+            }
+        }
+
+        getProduct();
+    </script>
+</body>
+</html>
